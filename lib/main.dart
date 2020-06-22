@@ -3,6 +3,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart' hide Action,Page;
 import 'package:flutter/material.dart' hide Action,Page;
 import 'package:study/app/guyun/pages/author/page.dart';
+import 'package:study/app/guyun/pages/highlight_content/page.dart';
 import 'package:study/app/guyun/pages/home/page.dart';
 
 import 'app/guyun/pages/author_detail/page.dart';
@@ -25,6 +26,7 @@ Widget createApp() {
       'guyun_author':AuthorPage(),
       'guyun_author_detail':AuthorDetailPage(),
       'guyun_works_detail':WorksDetailPage(),
+      'guyun_highlight_content':HighlightPage(),
     },
   );
 

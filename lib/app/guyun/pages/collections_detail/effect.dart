@@ -51,7 +51,7 @@ void _onInit(Action action, Context<CollectionDetailState> ctx) async {
   Map<String, dynamic> map = Map();
   map['collectionId'] = ctx.state.collectionInfo.collectionId;
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getCollectionById',
-      data: {'collectionId': ctx.state.collectionInfo.objectId},
+      data: map,
       success: (result) {
     CollectionDetailBean bean = CollectionDetailBean.fromJson(result);
     ctx.state.detailBean = bean.result;

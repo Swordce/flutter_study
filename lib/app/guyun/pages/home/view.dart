@@ -164,8 +164,14 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                         'guyun_author',),
                     ),
                   ),
-                  _buildQuickEntry(
-                      '名句', 'http://cdn.xcz.im/img/wenku/xj-sc.jpg'),
+                  Expanded(
+                    child: GestureDetector(
+                      child: _buildQuickEntry(
+                          '名句', 'http://cdn.xcz.im/img/wenku/xj-sc.jpg'),
+                      onTap: ()=>Navigator.of(viewService.context).pushNamed(
+                        'guyun_highlight_content',),
+                    ),
+                  ),
                   _buildQuickEntry(
                       '诗单', 'http://cdn.xcz.im/img/wenku/xj-gs.jpg'),
                   Expanded(
