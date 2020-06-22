@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:study/app/guyun/bean/collection_bean.dart';
-import 'package:study/app/guyun/bean/collection_detail_list.dart';
+import 'package:study/app/guyun/bean/works_list.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
 import 'action.dart';
@@ -26,9 +26,9 @@ void _loadData(int page,Context<CollectionDetailState> ctx) {
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getWorksByCollection',
       data: {'collectionId': ctx.state.collectionInfo.objectId,'page':page,'perPage':20},
       success: (result) {
-        CollectionDetailListBean bean = CollectionDetailListBean.fromJson(result);
+        WorksListBean bean = WorksListBean.fromJson(result);
         if(bean!= null) {
-          for(DetailList item in bean.result) {
+          for(WorksList item in bean.result) {
             if(item.title != null && item.content != null) {
               ctx.state.detailList.add(item);
             }

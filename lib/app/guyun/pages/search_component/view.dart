@@ -1,15 +1,14 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:study/app/guyun/bean/search_author.dart';
+import 'package:study/app/guyun/bean/all_author.dart';
 import 'package:study/app/guyun/bean/search_works.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(
     SearchComponentState state, Dispatch dispatch, ViewService viewService) {
-  Widget _buildAuthorItem(SearchAuthor author) {
+  Widget _buildAuthorItem(Authors author) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(left: 15, right: 10,top: 15,bottom: 15),

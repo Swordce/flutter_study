@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:study/app/guyun/bean/all_author.dart';
 import 'package:study/app/guyun/bean/search_author.dart';
 import 'package:study/app/guyun/pages/search_component/page.dart';
 
 class searchBarDelegate extends SearchDelegate<String>{
 
   String searchType;
-  List<SearchAuthor> hotAuthors;
+  List<Authors> hotAuthors;
 
   searchBarDelegate(this.searchType,this.hotAuthors):super(searchFieldLabel:searchType =='author'?'搜索作者':searchType == 'works'?'搜索作品':'搜索作者/作品');
 
@@ -60,22 +61,22 @@ class searchBarDelegate extends SearchDelegate<String>{
             spacing: 10.0,
             alignment: WrapAlignment.start,
             runAlignment: WrapAlignment.start,
-            children: _buildHotAuthor(),
+            children: _buildHotAuthor(context),
           ),
         )
       ],
     );
   }
 
-  List<Widget> _buildHotAuthor() {
+  List<Widget> _buildHotAuthor(BuildContext context) {
     List<Widget> hots = List();
-    for(SearchAuthor author in hotAuthors) {
+    for(Authors author in hotAuthors) {
       Widget widget = GestureDetector(
         child: Chip(
           label: Text(author.name),
         ),
         onTap: (){
-
+          Navigator.of(context).pushNamed('guyun_author_detail',arguments: {'author':author});
         },
       );
       hots.add(widget);

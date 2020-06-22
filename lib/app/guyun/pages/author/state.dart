@@ -28,7 +28,7 @@ class AuthorState implements Cloneable<AuthorState> {
   String dynasty = '不限';
   RefreshController refreshController;
 
-  List<SearchAuthor> hotAuthors = List();
+  List<Authors> hotAuthors = List();
 
   @override
   AuthorState clone() {

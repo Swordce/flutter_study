@@ -1,13 +1,21 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:study/app/guyun/bean/search_author.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:study/app/guyun/bean/all_author.dart';
+import 'package:study/app/guyun/bean/works_list.dart';
 
 class AuthorDetailState implements Cloneable<AuthorDetailState> {
 
-  SearchAuthor author;
+  Authors author;
+  List<WorksList> worksList = List();
+  int page = 1;
+  RefreshController refreshController;
 
   @override
   AuthorDetailState clone() {
     return AuthorDetailState()
+    ..refreshController = refreshController
+    ..page = page
+    ..worksList = worksList
     ..author = author;
   }
 }

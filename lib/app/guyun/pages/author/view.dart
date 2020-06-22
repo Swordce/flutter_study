@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:study/app/guyun/bean/all_author.dart';
-import 'package:study/app/guyun/bean/collection_detail_list.dart';
+import 'package:study/app/guyun/bean/works_list.dart';
 import 'package:study/utils/common_utils.dart';
 import 'package:study/widgets/search_delegate.dart';
 import 'package:study/widgets/vertical_tabs.dart';
@@ -166,7 +166,11 @@ Widget buildView(
                     child: ListView.separated(
                         shrinkWrap: true,
                         itemBuilder: (context, index) =>
-                            _buildItem(state.authors[index]),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              child: _buildItem(state.authors[index]),
+                              onTap: ()=>Navigator.of(viewService.context).pushNamed('guyun_author_detail',arguments: {'author':state.authors[index]}),
+                            ),
                         separatorBuilder: (context, index) {
                           return Container(
                             child: Divider(

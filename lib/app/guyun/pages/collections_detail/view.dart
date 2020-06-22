@@ -4,7 +4,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:study/app/guyun/bean/collection_detail_list.dart';
+import 'package:study/app/guyun/bean/works_list.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -23,7 +23,7 @@ Widget buildView(
     showDialog(context: viewService.context, builder: (_) => dialog);
   }
 
-  Widget _buildItem(DetailList item) {
+  Widget _buildItem(WorksList item) {
     return Container(
         margin: EdgeInsets.only(left: 15, right: 15, top: 15),
         child: Row(

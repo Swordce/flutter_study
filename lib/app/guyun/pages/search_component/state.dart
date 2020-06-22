@@ -1,11 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:study/app/guyun/bean/search_author.dart';
+import 'package:study/app/guyun/bean/all_author.dart';
 import 'package:study/app/guyun/bean/search_works.dart';
 
 class SearchComponentState implements Cloneable<SearchComponentState> {
   String searchType;
   String query;
-  List<SearchAuthor> authors = List();
+  List<Authors> authors = List();
   List<Works> works = List();
 
   @override

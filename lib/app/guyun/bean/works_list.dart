@@ -1,13 +1,13 @@
-class CollectionDetailListBean {
-  List<DetailList> result;
+class WorksListBean {
+  List<WorksList> result;
 
-  CollectionDetailListBean({this.result});
+  WorksListBean({this.result});
 
-  CollectionDetailListBean.fromJson(Map<String, dynamic> json) {
+  WorksListBean.fromJson(Map<String, dynamic> json) {
     if (json['result'] != null) {
-      result = new List<DetailList>();
+      result = new List<WorksList>();
       json['result'].forEach((v) {
-        result.add(new DetailList.fromJson(v));
+        result.add(new WorksList.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class CollectionDetailListBean {
   }
 }
 
-class DetailList {
+class WorksList {
   String authorName;
   String kindCN;
   String baiduWiki;
@@ -66,7 +66,7 @@ class DetailList {
   String sType;
   String className;
 
-  DetailList(
+  WorksList(
       {this.authorName,
         this.kindCN,
         this.baiduWiki,
@@ -111,7 +111,7 @@ class DetailList {
         this.sType,
         this.className});
 
-  DetailList.fromJson(Map<String, dynamic> json) {
+  WorksList.fromJson(Map<String, dynamic> json) {
     authorName = json['authorName'];
     kindCN = json['kindCN'];
     baiduWiki = json['baiduWiki'];
