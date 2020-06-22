@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/app/guyun/bean/works_list.dart';
 
 import 'action.dart';
@@ -20,7 +21,7 @@ Widget buildView(
     showDialog(context: viewService.context, builder: (_) => dialog);
   }
 
-  Widget _buildItem(WorksList item) {
+  Widget _buildItem(Work item) {
     return Column(
       children: <Widget>[
         Container(

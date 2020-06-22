@@ -4,6 +4,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/app/guyun/bean/works_list.dart';
 
 import 'action.dart';
@@ -23,55 +24,58 @@ Widget buildView(
     showDialog(context: viewService.context, builder: (_) => dialog);
   }
 
-  Widget _buildItem(WorksList item) {
+  Widget _buildItem(Work item) {
     return Container(
         margin: EdgeInsets.only(left: 15, right: 15, top: 15),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        '${item.title}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blueAccent,
+        child:GestureDetector(
+          child:  Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          '${item.title}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.blueAccent,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        item.content != null
-                            ? '${item.content.replaceAll('\r\n', '')}'
-                            : '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          item.content != null
+                              ? '${item.content.replaceAll('\r\n', '')}'
+                              : '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                '[ ${item.dynasty} ]  ${item.authorName}',
-                style: TextStyle(fontSize: 14, color: Colors.black54),
-              ),
-            )
-          ],
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '[ ${item.dynasty} ]  ${item.authorName}',
+                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+              )
+            ],
+          ),
+          onTap: ()=> Navigator.of(viewService.context).pushNamed('guyun_works_detail',arguments: {'work':item}),
         ));
   }
 

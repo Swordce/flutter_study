@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:study/app/guyun/bean/collection_bean.dart';
+import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/app/guyun/bean/works_list.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
@@ -28,7 +29,7 @@ void _loadData(int page,Context<CollectionDetailState> ctx) {
       success: (result) {
         WorksListBean bean = WorksListBean.fromJson(result);
         if(bean!= null) {
-          for(WorksList item in bean.result) {
+          for(Work item in bean.result) {
             if(item.title != null && item.content != null) {
               ctx.state.detailList.add(item);
             }

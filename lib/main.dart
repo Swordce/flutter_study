@@ -8,6 +8,7 @@ import 'package:study/app/guyun/pages/home/page.dart';
 import 'app/guyun/pages/author_detail/page.dart';
 import 'app/guyun/pages/collections/page.dart';
 import 'app/guyun/pages/collections_detail/page.dart';
+import 'app/guyun/works_detail/page.dart';
 
 
 void main() => runApp(createApp());
@@ -23,6 +24,7 @@ Widget createApp() {
       'guyun_collection_detail':CollectionDetailPage(),
       'guyun_author':AuthorPage(),
       'guyun_author_detail':AuthorDetailPage(),
+      'guyun_works_detail':WorksDetailPage(),
     },
   );
 
