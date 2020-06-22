@@ -172,8 +172,11 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                         'guyun_highlight_content',),
                     ),
                   ),
-                  _buildQuickEntry(
-                      '诗单', 'http://cdn.xcz.im/img/wenku/xj-gs.jpg'),
+                  Visibility(
+                    visible: false,
+                    child: _buildQuickEntry(
+                        '诗单', 'http://cdn.xcz.im/img/wenku/xj-gs.jpg'),
+                  ),
                   Expanded(
                     child: GestureDetector(
                       child: Column(
