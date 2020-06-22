@@ -41,52 +41,56 @@ Widget buildView(
   Widget _buildWorksItem(Works works) {
     return Container(
         margin: EdgeInsets.only(left: 15, right: 15, top: 15),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        '${works.work.title}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blueAccent,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          '${works.work.title}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.blueAccent,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '${works.highlightContent.replaceAll('\r\n', '')}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${works.highlightContent.replaceAll('\r\n', '')}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                '[ ${works.work.dynasty} ]  ${works.work.authorName}',
-                style: TextStyle(fontSize: 14, color: Colors.black54),
-              ),
-            )
-          ],
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '[ ${works.work.dynasty} ]  ${works.work.authorName}',
+                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+              )
+            ],
+          ),
+          onTap: ()=> Navigator.of(viewService.context).pushNamed('guyun_works_detail',arguments: {'work':works.work}),
         ));
   }
 
