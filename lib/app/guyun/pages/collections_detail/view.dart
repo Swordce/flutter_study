@@ -148,7 +148,11 @@ Widget buildView(
                           )
                         ],
                       ),
-                      onTap: () => _showCupertinoDialog(state.detailBean.desc),
+                      onTap: () {
+                        if(state.detailBean !=null && state.detailBean.desc != null){
+                          _showCupertinoDialog(state.detailBean.desc);
+                        }
+                      },
                     ),
                   ],
                 ),

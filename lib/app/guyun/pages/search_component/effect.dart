@@ -3,6 +3,7 @@ import 'package:study/app/guyun/bean/search_author.dart';
 import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
+import 'package:study/utils/loading.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -17,6 +18,7 @@ void _onAction(Action action, Context<SearchComponentState> ctx) {
 }
 
 void _onInit(Action action, Context<SearchComponentState> ctx) async {
+  LoadingUtils.showLoading();
   if (ctx.state.searchType == 'author') {
     _searchAuthor(ctx);
   } else if (ctx.state.searchType == 'works') {
@@ -25,6 +27,7 @@ void _onInit(Action action, Context<SearchComponentState> ctx) async {
     _searchAuthor(ctx);
     _searchWorks(ctx);
   }
+  LoadingUtils.hideLoading();
 }
 
 void _searchAuthor(Context<SearchComponentState> ctx) {

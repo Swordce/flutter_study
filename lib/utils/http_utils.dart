@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/common_utils.dart';
 
@@ -150,9 +151,9 @@ class HttpUtils {
       } else {
         result(response);
       }
+      EasyLoading.dismiss();
     } on DioError catch (e) {
       print('post error--------- $e');
-      error(e.message);
       formatError(e);
     }
   }

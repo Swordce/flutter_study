@@ -5,6 +5,7 @@ import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/app/guyun/bean/works_list.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
+import 'package:study/utils/loading.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -24,6 +25,7 @@ void _onLoadData(Action action, Context<CollectionDetailState> ctx) {
 }
 
 void _loadData(int page,Context<CollectionDetailState> ctx) {
+  LoadingUtils.showLoading();
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getWorksByCollection',
       data: {'collectionId': ctx.state.collectionInfo.objectId,'page':page,'perPage':20},
       success: (result) {
@@ -42,6 +44,7 @@ void _loadData(int page,Context<CollectionDetailState> ctx) {
           ctx.state.refreshController.loadFailed();
         }
         ctx.dispatch(CollectionDetailActionCreator.onRefresh());
+        LoadingUtils.hideLoading();
       });
 }
 
@@ -49,7 +52,7 @@ void _onInit(Action action, Context<CollectionDetailState> ctx) async {
   ctx.state.refreshController = RefreshController();
 
   Map<String, dynamic> map = Map();
-  map['collectionId'] = ctx.state.collectionInfo.collectionId;
+  map['collectionId'] = ctx.state.collectionInfo.objectId;
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getCollectionById',
       data: map,
       success: (result) {

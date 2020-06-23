@@ -2,6 +2,7 @@ import 'package:data_plugin/bmob/bmob.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart' hide Action,Page;
 import 'package:flutter/material.dart' hide Action,Page;
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:study/app/guyun/pages/author/page.dart';
 import 'package:study/app/guyun/pages/highlight_content/page.dart';
 import 'package:study/app/guyun/pages/home/page.dart';
@@ -9,7 +10,7 @@ import 'package:study/app/guyun/pages/home/page.dart';
 import 'app/guyun/pages/author_detail/page.dart';
 import 'app/guyun/pages/collections/page.dart';
 import 'app/guyun/pages/collections_detail/page.dart';
-import 'app/guyun/works_detail/page.dart';
+import 'app/guyun/pages/works_detail/page.dart';
 
 
 void main() => runApp(createApp());
@@ -35,10 +36,14 @@ Widget createApp() {
     theme: ThemeData(
       primaryColor: Color(0xff545268)
     ),
-    home: routes.buildPage('guyun_home', null),
+    home: FlutterEasyLoading(
+      child: routes.buildPage('guyun_home', null),
+    ),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {
-        return routes.buildPage(settings.name, settings.arguments);
+        return FlutterEasyLoading(
+          child: routes.buildPage(settings.name, settings.arguments),
+        );
       });
     },
   );

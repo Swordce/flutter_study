@@ -9,22 +9,20 @@ import 'state.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
   Widget _buildQuickEntry(String title, String url) {
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundImage: NetworkImage(url),
-            radius: 30,
+    return Column(
+      children: <Widget>[
+        CircleAvatar(
+          backgroundImage: NetworkImage(url),
+          radius: 30,
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 5),
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 14, color: Colors.black),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 14, color: Colors.black),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -88,7 +86,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
       child: GridView.builder(
         itemCount: item.result.length > 12 ? 12 : item.result.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, childAspectRatio: 1),
+            crossAxisCount: 4, childAspectRatio: 0.9),
         itemBuilder: (context, index) {
           return Container(
             child: GestureDetector(
@@ -247,7 +245,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => (_buildItem(state.kind[index])),
+                (contFt, index) => (_buildItem(state.kind[index])),
                 childCount: state.kind.length),
           )
         ],

@@ -4,6 +4,7 @@ import 'package:study/app/guyun/bean/search_works.dart';
 import 'package:study/app/guyun/bean/works_list.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
+import 'package:study/utils/loading.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -28,6 +29,7 @@ void _loadData(int page,Context<AuthorDetailState> ctx) {
   map['authorId'] = ctx.state.author.objectId;
   map['page'] = ctx.state.page;
   map['perPage'] = 20;
+  LoadingUtils.showLoading();
 
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getWorksByAuthor',data: map,
       success: (result) {
@@ -47,6 +49,7 @@ void _loadData(int page,Context<AuthorDetailState> ctx) {
             ctx.state.refreshController.loadFailed();
           }
           ctx.dispatch(AuthorDetailActionCreator.onRefreshPage());
+          LoadingUtils.hideLoading();
         }
       });
 }

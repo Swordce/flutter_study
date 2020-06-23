@@ -1,11 +1,17 @@
 import 'dart:convert';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart' hide Action;
+import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:study/app/guyun/bean/all_collections.dart';
 import 'package:study/app/guyun/bean/collections_data.dart';
 import 'package:study/app/guyun/bean/search_author.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
+import 'package:study/utils/loading.dart';
+import 'package:study/widgets/loading_dialog.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -18,7 +24,7 @@ Effect<HomeState> buildEffect() {
 
 void _onAction(Action action, Context<HomeState> ctx) {}
 
-CollectionsData _onGenerateData(String title, List<Result> results,int index) {
+CollectionsData _onGenerateData(String title, List<Result> results, int index) {
   CollectionsData bean1 = new CollectionsData();
   bean1.title = title;
   bean1.result = results;
@@ -27,6 +33,9 @@ CollectionsData _onGenerateData(String title, List<Result> results,int index) {
 }
 
 void _onInit(Action action, Context<HomeState> ctx) async {
+
+  LoadingUtils.showLoading();
+
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getAllCollections',
       success: (result) {
     List<Result> kindOne = List();
@@ -111,18 +120,19 @@ void _onInit(Action action, Context<HomeState> ctx) async {
           break;
       }
     }
-    ctx.state.kind.add(_onGenerateData('用典',kindEleven,1));
-    ctx.state.kind.add(_onGenerateData('选集',kindOne,2));
-    ctx.state.kind.add(_onGenerateData('主题',kindTwo,3));
-    ctx.state.kind.add(_onGenerateData('写景',kindThree,4));
-    ctx.state.kind.add(_onGenerateData('节日',kindFour,5));
-    ctx.state.kind.add(_onGenerateData('节气',kindFive,6));
-    ctx.state.kind.add(_onGenerateData('时令',kindTen,7));
-    ctx.state.kind.add(_onGenerateData('词牌',kindNine,8));
-    ctx.state.kind.add(_onGenerateData('小学',kindSix,9));
-    ctx.state.kind.add(_onGenerateData('初中',kindSeven,10));
-    ctx.state.kind.add(_onGenerateData('高中',kindEight,11));
+    ctx.state.kind.add(_onGenerateData('用典', kindEleven, 1));
+    ctx.state.kind.add(_onGenerateData('选集', kindOne, 2));
+    ctx.state.kind.add(_onGenerateData('主题', kindTwo, 3));
+    ctx.state.kind.add(_onGenerateData('写景', kindThree, 4));
+    ctx.state.kind.add(_onGenerateData('节日', kindFour, 5));
+    ctx.state.kind.add(_onGenerateData('节气', kindFive, 6));
+    ctx.state.kind.add(_onGenerateData('时令', kindTen, 7));
+    ctx.state.kind.add(_onGenerateData('词牌', kindNine, 8));
+    ctx.state.kind.add(_onGenerateData('小学', kindSix, 9));
+    ctx.state.kind.add(_onGenerateData('初中', kindSeven, 10));
+    ctx.state.kind.add(_onGenerateData('高中', kindEight, 11));
     ctx.dispatch(HomeActionCreator.onRefresh());
+    LoadingUtils.hideLoading();
   });
 
   _getHotAuthors(ctx);
@@ -131,10 +141,10 @@ void _onInit(Action action, Context<HomeState> ctx) async {
 void _getHotAuthors(Context<HomeState> ctx) {
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getHotAuthors',
       success: (result) {
-        if (result['result'] != null && result['result'].length > 0) {
-          SearchAuthorBean bean = SearchAuthorBean.fromJson(result);
-          ctx.state.hotAuthors.clear();
-          ctx.state.hotAuthors.addAll(bean.result);
-        }
-      });
+    if (result['result'] != null && result['result'].length > 0) {
+      SearchAuthorBean bean = SearchAuthorBean.fromJson(result);
+      ctx.state.hotAuthors.clear();
+      ctx.state.hotAuthors.addAll(bean.result);
+    }
+  });
 }

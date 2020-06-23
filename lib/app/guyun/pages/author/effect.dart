@@ -4,6 +4,7 @@ import 'package:study/app/guyun/bean/all_author.dart';
 import 'package:study/app/guyun/bean/search_author.dart';
 import 'package:study/common/constants.dart';
 import 'package:study/utils/http_utils.dart';
+import 'package:study/utils/loading.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -58,6 +59,7 @@ void _getAuthors(Context<AuthorState> ctx) {
   }else {
     api = '${Constants.GUYUN_API}getHotAuthorsIncludeCountByLikers';
   }
+  LoadingUtils.showLoading();
   HttpUtils.getInstance().post(
       api,
       data: map, success: (result) {
@@ -72,5 +74,6 @@ void _getAuthors(Context<AuthorState> ctx) {
     } else {
       ctx.state.refreshController.loadFailed();
     }
+    LoadingUtils.hideLoading();
   });
 }
