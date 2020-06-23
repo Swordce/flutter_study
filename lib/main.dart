@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:data_plugin/bmob/bmob.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart' hide Action,Page;
@@ -39,7 +41,7 @@ Widget createApp() {
       primaryColor: Color(0xff545268)
     ),
     home: FlutterEasyLoading(
-      child: routes.buildPage('guyun_splash', null),
+      child: Platform.isAndroid?routes.buildPage('guyun_splash', null):routes.buildPage('guyun_home', null),
     ),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {
