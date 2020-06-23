@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:study/app/guyun/bean/collections_data.dart';
 import 'package:study/widgets/search_delegate.dart';
 
@@ -210,46 +212,62 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
       ),
     );
   }
+  DateTime lastPopTime;
 
-  return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Color(0xffffffff),
-      centerTitle: true,
-      elevation: 1,
-      title: Text(
-        '中华诗词',
-        style: TextStyle(fontSize: 18, color: Colors.black),
-      ),
-      actions: <Widget>[
-
-        Container(
-          margin: EdgeInsets.only(right: 15),
-          child: GestureDetector(
-            child: Image.asset(
-              'assets/images/icon_search.png',
-              width: 20,
-              height: 20,
-            ),
-            onTap: () {
-              showSearch(context: viewService.context, delegate: searchBarDelegate('all',state.hotAuthors),);
-            },
-          ),
+  return WillPopScope(
+    child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xffffffff),
+        centerTitle: true,
+        elevation: 1,
+        title: Text(
+          '中华诗词',
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
-      ],
-    ),
-    body: SafeArea(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: _buildHeader(),
+        actions: <Widget>[
+
+          Container(
+            margin: EdgeInsets.only(right: 15),
+            child: GestureDetector(
+              child: Image.asset(
+                'assets/images/icon_search.png',
+                width: 20,
+                height: 20,
+              ),
+              onTap: () {
+                showSearch(context: viewService.context, delegate: searchBarDelegate('all',state.hotAuthors),);
+              },
+            ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (contFt, index) => (_buildItem(state.kind[index])),
-                childCount: state.kind.length),
-          )
         ],
       ),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: _buildHeader(),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                      (contFt, index) => (_buildItem(state.kind[index])),
+                  childCount: state.kind.length),
+            )
+          ],
+        ),
+      ),
     ),
+    onWillPop: () async {
+      // 点击返回键的操作
+      if(lastPopTime == null || DateTime.now().difference(lastPopTime) > Duration(seconds: 2)){
+        lastPopTime = DateTime.now();
+        Fluttertoast.showToast(msg: '再按一次退出');
+      }else{
+        lastPopTime = DateTime.now();
+        // 退出app
+        await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return true;
+      }
+      return false;
+    },
   );
 }

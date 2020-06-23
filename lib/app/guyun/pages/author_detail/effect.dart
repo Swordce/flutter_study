@@ -29,8 +29,9 @@ void _loadData(int page,Context<AuthorDetailState> ctx) {
   map['authorId'] = ctx.state.author.objectId;
   map['page'] = ctx.state.page;
   map['perPage'] = 20;
-  LoadingUtils.showLoading();
-
+  if(ctx.state.page == 1) {
+    LoadingUtils.showLoading();
+  }
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getWorksByAuthor',data: map,
       success: (result) {
         if (result['result'] != null && result['result'].length > 0) {
@@ -49,7 +50,9 @@ void _loadData(int page,Context<AuthorDetailState> ctx) {
             ctx.state.refreshController.loadFailed();
           }
           ctx.dispatch(AuthorDetailActionCreator.onRefreshPage());
-          LoadingUtils.hideLoading();
+          if(ctx.state.page == 1) {
+            LoadingUtils.hideLoading();
+          }
         }
       });
 }

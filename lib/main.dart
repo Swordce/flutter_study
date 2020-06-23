@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:study/app/guyun/pages/author/page.dart';
 import 'package:study/app/guyun/pages/highlight_content/page.dart';
 import 'package:study/app/guyun/pages/home/page.dart';
+import 'package:study/app/guyun/pages/splash/page.dart';
 
 import 'app/guyun/pages/author_detail/page.dart';
 import 'app/guyun/pages/collections/page.dart';
@@ -21,6 +22,7 @@ Widget createApp() {
 
   final AbstractRoutes routes = PageRoutes(
     pages: <String, Page<Object, dynamic>>{
+      'guyun_splash':SplashPage(),
       'guyun_home':HomePage(),
       'guyun_collections':CollectionsPage(),
       'guyun_collection_detail':CollectionDetailPage(),
@@ -37,7 +39,7 @@ Widget createApp() {
       primaryColor: Color(0xff545268)
     ),
     home: FlutterEasyLoading(
-      child: routes.buildPage('guyun_home', null),
+      child: routes.buildPage('guyun_splash', null),
     ),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {

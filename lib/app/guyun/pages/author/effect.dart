@@ -59,7 +59,9 @@ void _getAuthors(Context<AuthorState> ctx) {
   }else {
     api = '${Constants.GUYUN_API}getHotAuthorsIncludeCountByLikers';
   }
-  LoadingUtils.showLoading();
+  if(ctx.state.page == 1) {
+    LoadingUtils.showLoading();
+  }
   HttpUtils.getInstance().post(
       api,
       data: map, success: (result) {
@@ -74,6 +76,8 @@ void _getAuthors(Context<AuthorState> ctx) {
     } else {
       ctx.state.refreshController.loadFailed();
     }
-    LoadingUtils.hideLoading();
+    if(ctx.state.page == 1) {
+      LoadingUtils.hideLoading();
+    }
   });
 }

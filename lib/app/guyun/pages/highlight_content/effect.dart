@@ -27,7 +27,9 @@ void _loadData(int page,Context<HighlightState> ctx) {
   Map<String, dynamic> map = Map();
   map['page'] = ctx.state.page;
   map['perPage'] = 20;
-  LoadingUtils.showLoading();
+  if(ctx.state.page == 1) {
+    LoadingUtils.showLoading();
+  }
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getQuotesIncludeCount',
       data: map, success: (result) {
         HighlightContentBean contentBean = HighlightContentBean.fromJson(result);
@@ -41,7 +43,9 @@ void _loadData(int page,Context<HighlightState> ctx) {
           ctx.state.refreshController.loadFailed();
         }
         ctx.dispatch(HighlightActionCreator.onRefreshPage());
-        LoadingUtils.hideLoading();
+        if(ctx.state.page == 1) {
+          LoadingUtils.hideLoading();
+        }
       });
 }
 

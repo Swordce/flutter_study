@@ -25,7 +25,9 @@ void _onLoadData(Action action, Context<CollectionDetailState> ctx) {
 }
 
 void _loadData(int page,Context<CollectionDetailState> ctx) {
-  LoadingUtils.showLoading();
+  if(ctx.state.page == 1) {
+    LoadingUtils.showLoading();
+  }
   HttpUtils.getInstance().post('${Constants.GUYUN_API}getWorksByCollection',
       data: {'collectionId': ctx.state.collectionInfo.objectId,'page':page,'perPage':20},
       success: (result) {
@@ -44,7 +46,9 @@ void _loadData(int page,Context<CollectionDetailState> ctx) {
           ctx.state.refreshController.loadFailed();
         }
         ctx.dispatch(CollectionDetailActionCreator.onRefresh());
-        LoadingUtils.hideLoading();
+        if(ctx.state.page == 1) {
+          LoadingUtils.hideLoading();
+        }
       });
 }
 
